@@ -1,14 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package listcircdoble;
 
-/**
- *
- * @author Brandon VM
- */
 public class Lista {
+
     private Nodo cabeza;
     private Nodo ultimo;
 
@@ -38,43 +31,54 @@ public class Lista {
                     ultimo.setSiguiente(cabeza);// refrescamos el siguente del ultimo 
                     cabeza.setAnterior(ultimo);// refrescamos el anterior de la caeza 
                 } else {
-                    Nodo aux = cabeza;
-                    Nodo auxU = ultimo;
-                    while (aux.getDato().getId() <= p.getId() && p.getId() <= auxU.getDato().getId()) { // la condicino de parada es cuando el id sea mayor a el aux y si el id es menor al auxU 
-                        aux = aux.getSiguiente();// avanzamos al siguiente aux
-                        auxU = auxU.getAnterior();//resoresedmos de auxU
-                    }
+                    if (ultimo.getDato().getId() > p.getId() && ultimo.getAnterior().getDato().getId() < p.getId()) {  // en caso de insertar antes del ultimo 
+                        Nodo aux = new Nodo(p);// setiamos una varible aux com oel nodo a ingresarr (p)
+                        ultimo.getAnterior().setSiguiente(aux);// setiamos la refenrencia del anterior al ultimo 
+                        aux.setAnterior(ultimo.getAnterior().getAnterior());//setia,os el anterior del nodo nuevo 
+                        ultimo.setAnterior(aux);// refrescamos el anterior del ultimo 
+                        aux.setSiguiente(ultimo);// setiamos el siguenre del del aux osea el ultimo por la funcion  
+                    } else {
+                        Nodo aux = cabeza;
+                        Nodo auxU = ultimo;
+                        while (aux.getDato().getId() <= p.getId() && p.getId() <= auxU.getDato().getId()) { // la condicino de parada es cuando el id sea mayor a el aux y si el id es menor al auxU 
+                            aux = aux.getSiguiente();// avanzamos al siguiente aux
+                            auxU = auxU.getAnterior();//resoresedmos de auxU
+                        }
 
-                    aux = aux.getAnterior();// ponemos esto porque para que se ejecute el if necesitamos el el aux sea menor al id de p
-                    if (aux.getDato().getId() < p.getId() && aux.getSiguiente().getDato().getId() > p.getId()) {// verificamos si debemos incertarlo de la cabeza hacia adelante 
-                        aux = aux.getSiguiente();// setimos el aux al sigueinte del mismmo 
-                        Nodo temp = new Nodo(p);//creamos un nuevo nodo el cual insertaremos 
-                        temp.setAnterior(aux.getAnterior()); // seriamos el anterior del nuevo nodo al anteriror del aux
-                        temp.setSiguiente(aux);// seriamos el siguente del nodo el auz 
-                        aux.setAnterior(temp);// setiamos el nuevo atras del aux el nodo que creamos 
-                        temp.getAnterior().setSiguiente(temp);// setiamos que el temp fuese el siguente del anterior 
-                    } else if (auxU.getDato().getId() < p.getId() || auxU.getSiguiente().getDato().getId() > p.getId()) { // este funca
-                        Nodo temp = new Nodo(p); // se crea el nuevo nodo 
-                        temp.setAnterior(auxU); // setiamos que el anterior del nuevo nodo es la posicion en la que paramos
-                        temp.setSiguiente(auxU.getSiguiente()); // el sigueinte de ese noso es el siguinete de la posicion en la que paramos
-                        auxU.setSiguiente(temp);// setiamos que el sigueinte la posicion en la que paramos es el nuevo nodo 
-                        aux.getSiguiente().getSiguiente().setAnterior(temp);//setiamos el nuevo nodo como el anetior del antiguo siguente de la posicion en la que paramos
+                        aux = aux.getAnterior();// ponemos esto porque para que se ejecute el if necesitamos el el aux sea menor al id de p
+                        if (aux.getDato().getId() < p.getId() && aux.getSiguiente().getDato().getId() > p.getId()) {// verificamos si debemos incertarlo de la cabeza hacia adelante 
+                            aux = aux.getSiguiente();// setimos el aux al sigueinte del mismmo 
+                            Nodo temp = new Nodo(p);//creamos un nuevo nodo el cual insertaremos 
+                            temp.setAnterior(aux.getAnterior()); // seriamos el anterior del nuevo nodo al anteriror del aux
+                            temp.setSiguiente(aux);// seriamos el siguente del nodo el auz 
+                            aux.setAnterior(temp);// setiamos el nuevo atras del aux el nodo que creamos 
+                            temp.getAnterior().setSiguiente(temp);// setiamos que el temp fuese el siguente del anterior 
+                        } else if (auxU.getDato().getId() < p.getId() && auxU.getSiguiente().getDato().getId() > p.getId()) { // este funca
+                            Nodo temp = new Nodo(p); // se crea el nuevo nodo 
+                            temp.setAnterior(auxU); // setiamos que el anterior del nuevo nodo es la posicion en la que paramos
+                            temp.setSiguiente(auxU.getSiguiente()); // el sigueinte de ese noso es el siguinete de la posicion en la que paramos
+                            auxU.setSiguiente(temp);// setiamos que el sigueinte la posicion en la que paramos es el nuevo nodo 
+                            aux.getSiguiente().getSiguiente().setAnterior(temp);//setiamos el nuevo nodo como el anetior del antiguo siguente de la posicion en la que paramos
 
+                        }
                     }
                 }
             }
         }
+
     }
-    
-    public void impirmirUltimo(){ // metodo para que imprima el ultimo 
+
+    public void impirmirUltimo() { // metodo para que imprima el ultimo 
         Nodo aux = ultimo;
         System.out.println(aux);
     }
-     public void impirmirCabeza(){ // metodo para que imprima el ultimo 
+
+    public void impirmirCabeza() { // metodo para que imprima el ultimo 
         Nodo aux = cabeza;
         System.out.println(aux);
     }
-      public void ImprimirSiguienteDelUltimo(){ // metodo para que imprima el ultimo 
+
+    public void ImprimirSiguienteDelUltimo() { // metodo para que imprima el ultimo 
         Nodo aux = ultimo;
         aux = aux.getSiguiente();
         System.out.println(aux);
@@ -170,4 +174,3 @@ public class Lista {
     }
 
 }
-
